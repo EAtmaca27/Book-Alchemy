@@ -1,16 +1,15 @@
 import os
-
 from datetime import datetime
 
 from flask import Flask, render_template, request, flash, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
+
 from data_models import db, Author, Book
-
-
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(basedir, 'data/library.sqlite')}"
+app.config['SQLALCHEMY_DATABASE_URI'] = (
+    f"sqlite:///{os.path.join(basedir, 'data/library.sqlite')}"
+)
 app.secret_key = 'dev'
 db.init_app(app)
 
@@ -85,7 +84,10 @@ def add_book():
         publication_year = request.form['publication_year']
         author_id = request.form['author_id']
 
-        book = Book(isbn=isbn, title=title, publication_year=publication_year, author_id=author_id)
+        book = Book(
+            isbn=isbn, title=title,
+            publication_year=publication_year, author_id=author_id
+        )
         db.session.add(book)
         db.session.commit()
         flash('Book added successfully!')
@@ -100,7 +102,7 @@ if __name__ == '__main__':
     # Delete database file to reset the database
     # Delete following 2 lines to avoid creating tables on every run
     # or keep them commented out
-    '''with app.app_context():
-        db.create_all()'''
+    # with app.app_context():
+    #     db.create_all()
 
-    app.run()
+    app.run(host="127.0.0.1", port=5002)

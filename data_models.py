@@ -11,7 +11,10 @@ class Author(db.Model):
     date_of_death = db.Column(db.Date)
 
     def __repr__(self):
-        return f"Author(id={self.id!r}, name={self.name!r}, birth_date={self.birth_date!r}, date_of_death={self.date_of_death!r})"
+        return (
+            f"Author(id={self.id!r}, name={self.name!r}, "
+            f"birth_date={self.birth_date!r}, date_of_death={self.date_of_death!r})"
+        )
 
     def __str__(self):
         death = self.date_of_death.year if self.date_of_death else "-"

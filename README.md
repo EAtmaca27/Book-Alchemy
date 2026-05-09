@@ -45,7 +45,13 @@ Book-Alchemy/
    pip install flask flask-sqlalchemy
    ```
 
-2. **Create the database** — run this once to initialise the tables:
+2. **Create the database** — uncomment the `db.create_all()` block at the bottom of `app.py` for the first run, then comment it out again:
+   ```python
+   # in app.py __main__ block:
+   with app.app_context():
+       db.create_all()
+   ```
+   Alternatively, run it directly:
    ```bash
    python -c "from app import app, db; app.app_context().push(); db.create_all()"
    ```
@@ -55,7 +61,7 @@ Book-Alchemy/
    python app.py
    ```
 
-4. Open `http://127.0.0.1:5000` in your browser.
+4. Open `http://127.0.0.1:5002` in your browser.
 
 ## Usage
 
