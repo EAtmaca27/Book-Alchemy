@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.title }} — Book Alchemy{% endblock %}
+
+{% block content %}
+  <div class="detail-wrapper">
+    <img
+      class="detail-cover"
+      src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-L.jpg"
+      alt="Cover of {{ book.title }}"
+      onerror="this.src='{{ url_for('static', filename='no_cover.png') }}'">
+
+    <div class="detail-info">
+      <h1>{{ book.title }}</h1>
+      <p class="detail-author">{{ book.author.name }}</p>
+
+      <table class="detail-table">
+        <tr>
+          <th>ISBN</th>
+          <td>{{ book.isbn }}</td>
+        </tr>
+        <tr>
+          <th>Published</th>
+          <td>{{ book.publication_year }}</td>
+        </tr>
+        <tr>
+          <th>Author born</th>
+          <td>{{ book.author.birth_date.year if book.author.birth_date else '—' }}</td>
+        </tr>
+        <tr>
+          <th>Author died</th>
+          <td>{{ book.author.date_of_death.year if book.author.date_of_death else '—' }}</td>
+        </tr>
+      </table>
+
+      <div class="detail-actions">
+        <a href="{{ url_for('index') }}" class="btn-back">← Back to Library</a>
+        <form method="POST" action="/book/{{ book.id }}/delete">
+          <button class="btn-delete" type="submit">Delete Book</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
