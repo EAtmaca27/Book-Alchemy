@@ -96,6 +96,11 @@ def add_book():
 
 
 if __name__ == '__main__':
+    # Uncomment to create the database tables on first run
+    # Delete database file to reset the database
+    # Delete following 2 lines to avoid creating tables on every run
+    # or keep them commented out
     '''with app.app_context():
         db.create_all()'''
+
     app.run()
